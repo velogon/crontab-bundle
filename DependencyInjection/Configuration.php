@@ -28,8 +28,12 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
-        $rootNode = $builder->root(EcentriaCrontabBundle::ALIAS);
+        $builder = new TreeBuilder(EcentriaCrontabBundle::ALIAS);
+        if (method_exists($builder, 'getRootNode')) {
+            $rootNode = $builder->getRootNode();
+        } else {
+            $rootNode = $builder->root(EcentriaCrontabBundle::ALIAS);
+        }
 
         $rootNode
             ->children()
